@@ -123,6 +123,9 @@ public class ConnectFour : MonoBehaviour
 		int RowIndexForUpRightCheck = rowIndex;
 		int spotIndexForUpRightCheck = spotIndex;
 
+		int RowIndexForUpLeftCheck = rowIndex;
+		int spotIndexForUpLeftCheck = spotIndex;
+
 
 		Sprite spotSprite = Row.GetChild(spotIndex).GetComponent<SpriteRenderer>().sprite;
 
@@ -180,20 +183,42 @@ public class ConnectFour : MonoBehaviour
 		//		break;
 		//	}
 		//}
-		int amountInARowUpRight = 1;
-		for (int i = 0; i < 4; i++) // Check Up Right
-		{
-			if(spotIndexForUpRightCheck < 5 && RowIndexForUpRightCheck < 6)
-			{
-				spotIndexForUpRightCheck++;
-				if(rows.transform.GetChild(RowIndexForUpRightCheck + 1).GetChild(spotIndexForUpRightCheck).GetComponent<SpriteRenderer>().sprite == spotSprite)
-				{
-					amountInARowUpRight++;
-					RowIndexForUpRightCheck++;
+		//int amountInARowUpRight = 1;
+		//for (int i = 0; i < 4; i++) // Check Up Right
+		//{
+		//	if(spotIndexForUpRightCheck < 5 && RowIndexForUpRightCheck < 6)
+		//	{
+		//		spotIndexForUpRightCheck++;
+		//		if(rows.transform.GetChild(RowIndexForUpRightCheck + 1).GetChild(spotIndexForUpRightCheck).GetComponent<SpriteRenderer>().sprite == spotSprite)
+		//		{
+		//			amountInARowUpRight++;
+		//			RowIndexForUpRightCheck++;
 
-					if(amountInARowUpRight == 4)
+		//			if(amountInARowUpRight == 4)
+		//			{
+		//				Debug.Log("Four in a row up right");
+		//			}
+		//		}
+		//	}
+		//	else
+		//	{
+		//		break;
+		//	}
+		//}
+		int amountInARowUpLeft = 1;
+		for (int i = 0; i < 4; i++) // Check Up Left
+		{
+			if (spotIndexForUpLeftCheck < 5 && RowIndexForUpLeftCheck > 0)
+			{
+				spotIndexForUpLeftCheck++;
+				if (rows.transform.GetChild(RowIndexForUpLeftCheck - 1).GetChild(spotIndexForUpLeftCheck).GetComponent<SpriteRenderer>().sprite == spotSprite)
+				{
+					amountInARowUpLeft++;
+					RowIndexForUpLeftCheck--;
+
+					if (amountInARowUpLeft == 4)
 					{
-						Debug.Log("Four in a row up right");
+						Debug.Log("Four in a row up left");
 					}
 				}
 			}
