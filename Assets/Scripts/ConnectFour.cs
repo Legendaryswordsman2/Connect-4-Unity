@@ -12,8 +12,11 @@ public class ConnectFour : MonoBehaviour
 	[SerializeField] Sprite playerTwoPiece;
 	[Space]
 	[SerializeField] GameObject rows;
+	[SerializeField] GameObject selectionSpotsParent;
 
-	[SerializeField] Row[] rowChildren;
+	Row[] rowChildren;
+	[SerializeField] SelectionSpot[] selectionSpots;
+
 
 	Sprite currentPiece;
 
@@ -23,8 +26,9 @@ public class ConnectFour : MonoBehaviour
 		currentPiece = playerOnePiece;
 
 		rowChildren = rows.GetComponentsInChildren<Row>();
+		selectionSpots = selectionSpotsParent.GetComponentsInChildren<SelectionSpot>();
 
-		rowChildren[index].transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = currentPiece;
+		selectionSpots[index].GetComponent<SpriteRenderer>().sprite = currentPiece;
 	}
 	private void Update()
 	{
@@ -35,23 +39,23 @@ public class ConnectFour : MonoBehaviour
 			if (index <= 0) return;
 			index--;
 
-			for (int i = 0; i < rowChildren.Length; i++)
+			for (int i = 0; i < selectionSpots.Length; i++)
 			{
-				rowChildren[i].transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = null;
+				selectionSpots[i].GetComponent<SpriteRenderer>().sprite = null;
 			}
-			rowChildren[index].transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = currentPiece;
+			selectionSpots[index].GetComponent<SpriteRenderer>().sprite = currentPiece;
 		}
 
 		if (Input.GetKeyDown(KeyCode.D))
 		{
-			if (index >= rowChildren.Length - 1) return;
+			if (index >= selectionSpots.Length - 1) return;
 			index++;
 
 			for (int i = 0; i < rowChildren.Length; i++)
 			{
-				rowChildren[i].transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = null;
+				selectionSpots[i].GetComponent<SpriteRenderer>().sprite = null;
 			}
-			rowChildren[index].transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = currentPiece;
+			selectionSpots[index].GetComponent<SpriteRenderer>().sprite = currentPiece;
 		}
 	}
 }
