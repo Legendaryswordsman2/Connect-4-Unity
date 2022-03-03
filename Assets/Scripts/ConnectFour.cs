@@ -32,7 +32,23 @@ public class ConnectFour : MonoBehaviour
 	}
 	private void Update()
 	{
-		//rowChildren[index].transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = currentPiece;
+		if (Input.GetKeyDown(KeyCode.Return))
+		{
+			var currentRow = rowChildren[index].transform;
+			for (int i = 0; i < 6; i++)
+			{
+				if (currentRow.GetChild(i).GetComponent<Spot>().isAvailable)
+				{
+					currentRow.GetChild(i).GetComponent<SpriteRenderer>().sprite = currentPiece;
+
+					currentRow.GetChild(i).GetComponent<Spot>().isAvailable = false;
+
+					break;
+				}
+			}
+
+			//rowChildren[index].transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = currentPiece;
+		}
 
 		if (Input.GetKeyDown(KeyCode.A))
 		{
