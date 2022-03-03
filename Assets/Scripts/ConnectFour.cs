@@ -372,12 +372,16 @@ public class ConnectFour : MonoBehaviour
 			WinText.text = "Game Over! Player Two Won";
 			WinText.gameObject.SetActive(true);
 		}
-		StartCoroutine(EndGame());
+		//StartCoroutine(EndGame());
 	}
 
 	IEnumerator EndGame()
 	{
 		yield return new WaitForSeconds(5);
+		SceneManager.LoadScene("Title");
+	}
+	public void BackToTitle()
+	{
 		SceneManager.LoadScene("Title");
 	}
 }
