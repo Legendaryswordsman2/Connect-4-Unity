@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using TMPro;
 
-public enum CurrentTurn{ Player1, Player2, Null}
+public enum CurrentTurn{ Player1, Player2, Null, Player1Won, Player2Won}
 
 public class ConnectFour : MonoBehaviour
 {
@@ -13,6 +15,7 @@ public class ConnectFour : MonoBehaviour
 	[Space]
 	[SerializeField] GameObject rows;
 	[SerializeField] GameObject selectionSpotsParent;
+	[SerializeField] TMP_Text WinText;
 
 	Row[] rowChildren;
 	[SerializeField] SelectionSpot[] selectionSpots;
@@ -21,6 +24,8 @@ public class ConnectFour : MonoBehaviour
 	Sprite currentPiece;
 
 	int index = 0;
+
+	bool gameStillGoing = true;
 	private void Awake()
 	{
 		currentTurn = CurrentTurn.Player1;
@@ -33,7 +38,7 @@ public class ConnectFour : MonoBehaviour
 	}
 	private void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Return))
+		if (Input.GetKeyDown(KeyCode.Return) && gameStillGoing)
 		{
 			var currentRow = rowChildren[index].transform;
 			for (int i = 0; i < 6; i++)
@@ -55,7 +60,7 @@ public class ConnectFour : MonoBehaviour
 			//rowChildren[index].transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = currentPiece;
 		}
 
-		if (Input.GetKeyDown(KeyCode.A))
+		if (Input.GetKeyDown(KeyCode.A) && gameStillGoing)
 		{
 			if (index <= 0) return;
 			index--;
@@ -67,7 +72,7 @@ public class ConnectFour : MonoBehaviour
 			selectionSpots[index].GetComponent<SpriteRenderer>().sprite = currentPiece;
 		}
 
-		if (Input.GetKeyDown(KeyCode.D))
+		if (Input.GetKeyDown(KeyCode.D) && gameStillGoing)
 		{
 			if (index >= selectionSpots.Length - 1) return;
 			index++;
@@ -82,20 +87,20 @@ public class ConnectFour : MonoBehaviour
 
 	void SwitchTurn()
 	{
-		//if (currentTurn == CurrentTurn.Player1)
-		//{
-		//	currentPiece = playerTwoPiece;
-		//	//index = 0;
+		if (currentTurn == CurrentTurn.Player1)
+		{
+			currentPiece = playerTwoPiece;
+			//index = 0;
 
-		//	//for (int i = 0; i < selectionSpots.Length; i++)
-		//	//{
-		//	//	selectionSpots[i].GetComponent<SpriteRenderer>().sprite = null;
-		//	//}
-		//	selectionSpots[index].GetComponent<SpriteRenderer>().sprite = currentPiece;
+			//for (int i = 0; i < selectionSpots.Length; i++)
+			//{
+			//	selectionSpots[i].GetComponent<SpriteRenderer>().sprite = null;
+			//}
+			selectionSpots[index].GetComponent<SpriteRenderer>().sprite = currentPiece;
 
-		//	currentTurn = CurrentTurn.Player2;
-		//	return;
-		//}
+			currentTurn = CurrentTurn.Player2;
+			return;
+		}
 
 		if (currentTurn == CurrentTurn.Player2)
 		{
@@ -148,7 +153,17 @@ public class ConnectFour : MonoBehaviour
 
 				if (amountInARowVertical == 4)
 				{
-					//Debug.Log("FOUR IN A ROW VERTICAL");
+					if (spotSprite == playerOnePiece)
+					{
+						currentTurn = CurrentTurn.Player1Won;
+						Win();
+					}
+
+					if (spotSprite == playerTwoPiece)
+					{
+						currentTurn = CurrentTurn.Player2Won;
+						Win();
+					}
 				}
 			}
 			else
@@ -166,7 +181,17 @@ public class ConnectFour : MonoBehaviour
 
 				if (amountInARowHorizontalRight == 4)
 				{
-					//Debug.Log("FOUR IN A ROW Horizontal Right");
+					if (spotSprite == playerOnePiece)
+					{
+						currentTurn = CurrentTurn.Player1Won;
+						Win();
+					}
+
+					if (spotSprite == playerTwoPiece)
+					{
+						currentTurn = CurrentTurn.Player2Won;
+						Win();
+					}
 				}
 			}
 			else
@@ -184,7 +209,17 @@ public class ConnectFour : MonoBehaviour
 
 				if (amountInARowHorizontalLeft == 4)
 				{
-					//Debug.Log("FOUR IN A ROW Horizontal Left");
+					if (spotSprite == playerOnePiece)
+					{
+						currentTurn = CurrentTurn.Player1Won;
+						Win();
+					}
+
+					if (spotSprite == playerTwoPiece)
+					{
+						currentTurn = CurrentTurn.Player2Won;
+						Win();
+					}
 				}
 			}
 			else
@@ -205,7 +240,17 @@ public class ConnectFour : MonoBehaviour
 
 					if (amountInARowUpRight == 4)
 					{
-						//Debug.Log("Four in a row up right");
+						if (spotSprite == playerOnePiece)
+						{
+							currentTurn = CurrentTurn.Player1Won;
+							Win();
+						}
+
+						if (spotSprite == playerTwoPiece)
+						{
+							currentTurn = CurrentTurn.Player2Won;
+							Win();
+						}
 					}
 				}
 			}
@@ -227,7 +272,17 @@ public class ConnectFour : MonoBehaviour
 
 					if (amountInARowUpLeft == 4)
 					{
-						//Debug.Log("Four in a row up left");
+						if (spotSprite == playerOnePiece)
+						{
+							currentTurn = CurrentTurn.Player1Won;
+							Win();
+						}
+
+						if (spotSprite == playerTwoPiece)
+						{
+							currentTurn = CurrentTurn.Player2Won;
+							Win();
+						}
 					}
 				}
 			}
@@ -249,8 +304,18 @@ public class ConnectFour : MonoBehaviour
 
 						if(amountInARowDownRight == 4)
 						{
-							//Debug.Log("Four in a row down right");
+						if (spotSprite == playerOnePiece)
+						{
+							currentTurn = CurrentTurn.Player1Won;
+							Win();
 						}
+
+						if (spotSprite == playerTwoPiece)
+						{
+							currentTurn = CurrentTurn.Player2Won;
+							Win();
+						}
+					}
 					}
 				}
 				else
@@ -271,7 +336,17 @@ public class ConnectFour : MonoBehaviour
 
 					if (amountInARowDownLeft == 4)
 					{
-						//Debug.Log("Four in a row down left");
+						if (spotSprite == playerOnePiece)
+						{
+							currentTurn = CurrentTurn.Player1Won;
+							Win();
+						}
+
+						if (spotSprite == playerTwoPiece)
+						{
+							currentTurn = CurrentTurn.Player2Won;
+							Win();
+						}
 					}
 				}
 			}
@@ -280,5 +355,29 @@ public class ConnectFour : MonoBehaviour
 				break;
 			}
 		}
+	}
+
+	void Win()
+	{
+		gameStillGoing = false;
+		selectionSpots[index].GetComponent<SpriteRenderer>().sprite = null;
+		if (currentTurn == CurrentTurn.Player1Won)
+		{
+			WinText.text = "Game Over! Player One Won";
+			WinText.gameObject.SetActive(true);
+		}
+
+	   if(currentTurn == CurrentTurn.Player2Won)
+		{
+			WinText.text = "Game Over! Player Two Won";
+			WinText.gameObject.SetActive(true);
+		}
+		StartCoroutine(EndGame());
+	}
+
+	IEnumerator EndGame()
+	{
+		yield return new WaitForSeconds(5);
+		SceneManager.LoadScene("Title");
 	}
 }
