@@ -3062,6 +3062,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b84d87e117b9b943a596d6b22b5c5fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentTurn: 2
   playerOnePiece: {fileID: 21300000, guid: 7c05c260738d8e944ac1b67ecfd6fa4c, type: 3}
   playerTwoPiece: {fileID: 21300000, guid: 60bd3a764635c424cba4f1654a376768, type: 3}
   rows: {fileID: 1616844788}
@@ -5096,7 +5097,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.82, y: 1.82}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0

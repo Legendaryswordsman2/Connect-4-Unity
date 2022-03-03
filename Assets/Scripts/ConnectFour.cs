@@ -44,6 +44,8 @@ public class ConnectFour : MonoBehaviour
 
 					currentRow.GetChild(i).GetComponent<Spot>().isAvailable = false;
 
+					Check(currentRow, i);
+
 					SwitchTurn();
 
 					break;
@@ -80,10 +82,8 @@ public class ConnectFour : MonoBehaviour
 
 	void SwitchTurn()
 	{
-		Debug.Log("Switched Turn");
 		if(currentTurn == CurrentTurn.Player1)
 		{
-			Debug.Log("Its now player twos turn");
 			currentPiece = playerTwoPiece;
 			//index = 0;
 
@@ -99,7 +99,6 @@ public class ConnectFour : MonoBehaviour
 
 		if(currentTurn == CurrentTurn.Player2)
 		{
-			Debug.Log("Its now player ones turn");
 			currentPiece = playerOnePiece;
 			//index = 0;
 
@@ -111,6 +110,17 @@ public class ConnectFour : MonoBehaviour
 
 			currentTurn = CurrentTurn.Player1;
 			return;
+		}
+	}
+	void Check(Transform Row, int spotIndex)
+	{
+
+		//Debug.Log("Checking: " + Row + "   " + spotIndex);
+		Sprite spotSprite = Row.GetChild(spotIndex).GetComponent<SpriteRenderer>().sprite;
+
+		if (spotIndex > 0 && Row.GetChild(spotIndex - 1).GetComponent<SpriteRenderer>().sprite == spotSprite)
+		{
+			Debug.Log("Bottom Same As Top");
 		}
 	}
 }
