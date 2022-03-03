@@ -44,7 +44,7 @@ public class ConnectFour : MonoBehaviour
 
 					currentRow.GetChild(i).GetComponent<Spot>().isAvailable = false;
 
-					Check(currentRow, i);
+					Check(currentRow, i, index);
 
 					SwitchTurn();
 
@@ -82,7 +82,7 @@ public class ConnectFour : MonoBehaviour
 
 	void SwitchTurn()
 	{
-		if(currentTurn == CurrentTurn.Player1)
+		if (currentTurn == CurrentTurn.Player1)
 		{
 			currentPiece = playerTwoPiece;
 			//index = 0;
@@ -97,7 +97,7 @@ public class ConnectFour : MonoBehaviour
 			return;
 		}
 
-		if(currentTurn == CurrentTurn.Player2)
+		if (currentTurn == CurrentTurn.Player2)
 		{
 			currentPiece = playerOnePiece;
 			//index = 0;
@@ -112,29 +112,69 @@ public class ConnectFour : MonoBehaviour
 			return;
 		}
 	}
-	void Check(Transform Row, int spotIndex)
+	void Check(Transform Row, int spotIndex, int rowIndex)
 	{
+		int rowIndexForBottomCheck = rowIndex;
+		int spotIndexForBottomCheck = spotIndex;
 
-		//Debug.Log("Checking: " + Row + "   " + spotIndex);
+		int rowIndexForHorizontalRightCheck = rowIndex;
+		int spotIndexForHorizontalRightCheck = spotIndex;
+
+
 		Sprite spotSprite = Row.GetChild(spotIndex).GetComponent<SpriteRenderer>().sprite;
 
-		//if (spotIndex > 0 && Row.GetChild(spotIndex - 1).GetComponent<SpriteRenderer>().sprite == spotSprite)
-		//{
-		//	Debug.Log("Bottom Same As Top");
-		//}
-
-		int amountInARow = 1;
-		for (int i = 0; i < 4; i++)
+		int amountInARowVertical = 1;
+		for (int i = 0; i < 4; i++) // Check Vertical
 		{
-			if (spotIndex > 0 && Row.GetChild(spotIndex - 1).GetComponent<SpriteRenderer>().sprite == spotSprite)
+			if (spotIndexForBottomCheck > 0 && Row.GetChild(spotIndexForBottomCheck - 1).GetComponent<SpriteRenderer>().sprite == spotSprite)
 			{
-				spotIndex--;
-				amountInARow++;
+				spotIndexForBottomCheck--;
+				amountInARowVertical++;
 
-				if(amountInARow == 4)
+				if(amountInARowVertical == 4)
 				{
 					Debug.Log("FOUR IN A ROW VERTICAL");
 				}
+			}
+			else
+			{
+				break;
+			}
+		}
+		int amountInARowHorizontalRight = 1;
+		for (int i = 0; i < 4; i++) // Check Horizontal Right
+		{
+			if (rowIndexForHorizontalRightCheck < 6 && rows.transform.GetChild(rowIndexForHorizontalRightCheck + 1).GetChild(spotIndexForHorizontalRightCheck).GetComponent<SpriteRenderer>().sprite == spotSprite)
+			{
+				rowIndexForHorizontalRightCheck++;
+				amountInARowHorizontalRight++;
+
+				if (amountInARowHorizontalRight == 4)
+				{
+					Debug.Log("FOUR IN A ROW Horizontal Right");
+				}
+			}
+			else
+			{
+				break;
+			}
+		}
+		int amountInARowHorizontalLeft = 1;
+		for (int i = 0; i < 4; i++) // Check Horizontal Left
+		{
+			if (rowIndexForHorizontalRightCheck > 0 && rows.transform.GetChild(rowIndexForHorizontalRightCheck - 1).GetChild(spotIndexForHorizontalRightCheck).GetComponent<SpriteRenderer>().sprite == spotSprite)
+			{
+				rowIndexForHorizontalRightCheck--;
+				amountInARowHorizontalLeft++;
+
+				if (amountInARowHorizontalRight == 4)
+				{
+					Debug.Log("FOUR IN A ROW Horizontal Left");
+				}
+			}
+			else
+			{
+				break;
 			}
 		}
 	}
