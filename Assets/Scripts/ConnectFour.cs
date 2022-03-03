@@ -6,7 +6,7 @@ public enum CurrentTurn{ Player1, Player2, Null}
 
 public class ConnectFour : MonoBehaviour
 {
-	CurrentTurn currentTurn = CurrentTurn.Null;
+	[SerializeField] CurrentTurn currentTurn = CurrentTurn.Null;
 
 	[SerializeField] Sprite playerOnePiece;
 	[SerializeField] Sprite playerTwoPiece;
@@ -23,6 +23,7 @@ public class ConnectFour : MonoBehaviour
 	int index = 0;
 	private void Awake()
 	{
+		currentTurn = CurrentTurn.Player1;
 		currentPiece = playerOnePiece;
 
 		rowChildren = rows.GetComponentsInChildren<Row>();
@@ -42,6 +43,8 @@ public class ConnectFour : MonoBehaviour
 					currentRow.GetChild(i).GetComponent<SpriteRenderer>().sprite = currentPiece;
 
 					currentRow.GetChild(i).GetComponent<Spot>().isAvailable = false;
+
+					SwitchTurn();
 
 					break;
 				}
@@ -72,6 +75,42 @@ public class ConnectFour : MonoBehaviour
 				selectionSpots[i].GetComponent<SpriteRenderer>().sprite = null;
 			}
 			selectionSpots[index].GetComponent<SpriteRenderer>().sprite = currentPiece;
+		}
+	}
+
+	void SwitchTurn()
+	{
+		Debug.Log("Switched Turn");
+		if(currentTurn == CurrentTurn.Player1)
+		{
+			Debug.Log("Its now player twos turn");
+			currentPiece = playerTwoPiece;
+			//index = 0;
+
+			//for (int i = 0; i < selectionSpots.Length; i++)
+			//{
+			//	selectionSpots[i].GetComponent<SpriteRenderer>().sprite = null;
+			//}
+			selectionSpots[index].GetComponent<SpriteRenderer>().sprite = currentPiece;
+
+			currentTurn = CurrentTurn.Player2;
+			return;
+		}
+
+		if(currentTurn == CurrentTurn.Player2)
+		{
+			Debug.Log("Its now player ones turn");
+			currentPiece = playerOnePiece;
+			//index = 0;
+
+			//for (int i = 0; i < selectionSpots.Length; i++)
+			//{
+			//	selectionSpots[i].GetComponent<SpriteRenderer>().sprite = null;
+			//}
+			selectionSpots[index].GetComponent<SpriteRenderer>().sprite = currentPiece;
+
+			currentTurn = CurrentTurn.Player1;
+			return;
 		}
 	}
 }
