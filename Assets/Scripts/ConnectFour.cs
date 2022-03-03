@@ -118,9 +118,24 @@ public class ConnectFour : MonoBehaviour
 		//Debug.Log("Checking: " + Row + "   " + spotIndex);
 		Sprite spotSprite = Row.GetChild(spotIndex).GetComponent<SpriteRenderer>().sprite;
 
-		if (spotIndex > 0 && Row.GetChild(spotIndex - 1).GetComponent<SpriteRenderer>().sprite == spotSprite)
+		//if (spotIndex > 0 && Row.GetChild(spotIndex - 1).GetComponent<SpriteRenderer>().sprite == spotSprite)
+		//{
+		//	Debug.Log("Bottom Same As Top");
+		//}
+
+		int amountInARow = 1;
+		for (int i = 0; i < 4; i++)
 		{
-			Debug.Log("Bottom Same As Top");
+			if (spotIndex > 0 && Row.GetChild(spotIndex - 1).GetComponent<SpriteRenderer>().sprite == spotSprite)
+			{
+				spotIndex--;
+				amountInARow++;
+
+				if(amountInARow == 4)
+				{
+					Debug.Log("FOUR IN A ROW VERTICAL");
+				}
+			}
 		}
 	}
 }
