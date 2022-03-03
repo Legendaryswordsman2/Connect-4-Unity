@@ -120,6 +120,9 @@ public class ConnectFour : MonoBehaviour
 		int rowIndexForHorizontalRightCheck = rowIndex;
 		int spotIndexForHorizontalRightCheck = spotIndex;
 
+		int rowIndexForHorizontalLeftCheck = rowIndex;
+		int spotIndexForHorizontalLeftCheck = spotIndex;
+
 		int RowIndexForUpRightCheck = rowIndex;
 		int spotIndexForUpRightCheck = spotIndex;
 
@@ -174,12 +177,12 @@ public class ConnectFour : MonoBehaviour
 		int amountInARowHorizontalLeft = 1;
 		for (int i = 0; i < 4; i++) // Check Horizontal Left
 		{
-			if (rowIndexForHorizontalRightCheck > 0 && rows.transform.GetChild(rowIndexForHorizontalRightCheck - 1).GetChild(spotIndexForHorizontalRightCheck).GetComponent<SpriteRenderer>().sprite == spotSprite)
+			if (rowIndexForHorizontalLeftCheck > 0 && rows.transform.GetChild(rowIndexForHorizontalLeftCheck - 1).GetChild(spotIndexForHorizontalRightCheck).GetComponent<SpriteRenderer>().sprite == spotSprite)
 			{
-				rowIndexForHorizontalRightCheck--;
+				rowIndexForHorizontalLeftCheck--;
 				amountInARowHorizontalLeft++;
 
-				if (amountInARowHorizontalRight == 4)
+				if (amountInARowHorizontalLeft == 4)
 				{
 					//Debug.Log("FOUR IN A ROW Horizontal Left");
 				}
@@ -268,7 +271,7 @@ public class ConnectFour : MonoBehaviour
 
 					if (amountInARowDownLeft == 4)
 					{
-						Debug.Log("Four in a row down left");
+						//Debug.Log("Four in a row down left");
 					}
 				}
 			}
