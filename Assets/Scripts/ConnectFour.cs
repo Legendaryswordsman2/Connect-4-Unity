@@ -129,6 +129,9 @@ public class ConnectFour : MonoBehaviour
 		int RowIndexForDownRightCheck = rowIndex;
 		int spotIndexForDownRightCheck = spotIndex;
 
+		int RowIndexForDownLeftCheck = rowIndex;
+		int spotIndexForDownLeftCheck = spotIndex;
+
 
 		Sprite spotSprite = Row.GetChild(spotIndex).GetComponent<SpriteRenderer>().sprite;
 
@@ -221,7 +224,7 @@ public class ConnectFour : MonoBehaviour
 
 					if (amountInARowUpLeft == 4)
 					{
-						Debug.Log("Four in a row up left");
+						//Debug.Log("Four in a row up left");
 					}
 				}
 			}
@@ -243,7 +246,7 @@ public class ConnectFour : MonoBehaviour
 
 						if(amountInARowDownRight == 4)
 						{
-							Debug.Log("Four in a row down right");
+							//Debug.Log("Four in a row down right");
 						}
 					}
 				}
@@ -252,5 +255,27 @@ public class ConnectFour : MonoBehaviour
 					break;
 				}
 			}
+		int amountInARowDownLeft = 1;
+		for (int i = 0; i < 4; i++) // Check Down Left
+		{
+			if (spotIndexForDownLeftCheck > 0 && RowIndexForDownLeftCheck > 0)
+			{
+				spotIndexForDownLeftCheck--;
+				if (rows.transform.GetChild(RowIndexForDownLeftCheck - 1).GetChild(spotIndexForDownLeftCheck).GetComponent<SpriteRenderer>().sprite == spotSprite)
+				{
+					amountInARowDownLeft++;
+					RowIndexForDownLeftCheck--;
+
+					if (amountInARowDownLeft == 4)
+					{
+						Debug.Log("Four in a row down left");
+					}
+				}
+			}
+			else
+			{
+				break;
+			}
+		}
 	}
 }
